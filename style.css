@@ -34,6 +34,7 @@ main {
   box-shadow: 0px 20px 15px #33333335;
   display: flex;
   flex-direction: column;
+  position: relative;
 }
 
 .top {
@@ -68,6 +69,7 @@ main {
   width: 85px;
   background: var(--buttons);
   color: #fff;
+  transition: ease-out 0.3s;
 }
 
 .span-2 {
@@ -83,8 +85,40 @@ main {
 .function {
   background-color: #a5a5a5;
   color: #000000;
+  font-size: 30px;
 }
 
 .operator {
   background: #f1a33c;
+  font-size: 44px;
+}
+
+.bottom {
+  width: 150px;
+  height: 5px;
+  background: #fff;
+  border-radius: 4px;
+  position: absolute;
+  bottom: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+.grid-btn:hover {
+  filter: brightness(150%);
+}
+.operator:hover,
+.operator:focus,
+.operator:active {
+  background: #fff;
+  color: #f1a33c;
+  filter: brightness(110%);
+}
+.operator:last-child:hover,
+.operator:last-child:focus,
+.operator:last-child:active {
+  background: #f1a33c;
+  color: #fff;
+}
+button {
+  cursor: pointer;
 }
