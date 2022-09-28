@@ -71,7 +71,7 @@ function compute() {
 function appendNumber() {
   allClear.textContent = 'C';
   if (isOperator) {
-    screen.textContent = this.textContent;
+    screen.textContent = this.value;
     isOperator = false;
     return;
   }
