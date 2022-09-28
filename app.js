@@ -1,24 +1,63 @@
-const numbers = document.querySelectorAll('[data-number')
-const operators = document.querySelectorAll('[data-operator')
-const allClear= document.querySelector('[data-all-clear')
-const equal = document.querySelector('[data-equals')
-const negPos = document.querySelector('[data-neg-pos')
-const percent = document.querySelector('[data-percent')
+const numbers = document.querySelectorAll('[data-number');
+const operators = document.querySelectorAll(
+  '[data-operator'
+);
+const allClear = document.querySelector('[data-all-clear');
+const equal = document.querySelector('[data-equals');
+const negPos = document.querySelector('[data-neg-pos');
+const percent = document.querySelector('[data-percent');
+const decimal = document.querySelector('[data-decimal');
+const screen = document.querySelector('.screen');
 
-class Calculator {
-    constructor(previousOperandTextEl, currentOperandTextEl)
+for (const number of numbers) {
+  number.addEventListener('click', (e) =>
+    screen.textContent !== '0'
+      ? (screen.textContent += e.currentTarget.textContent)
+      : (screen.textContent = e.currentTarget.textContent)
+  );
 }
 
+class Calculator {
+  constructor(
+    displayValue,
+    firstOperand,
+    secondOperand,
+    operator
+  ) {
+    this.firstOperand = firstOperand;
+    this.displayValue = displayValue;
+    this.secondOperand = secondOperand;
+    this.operator = operator;
+  }
+  add() {
+    return this.firstOperand + this.secondOperand;
+  }
+  subtract() {
+    return this.firstOperand - this.secondOperand;
+  }
 
-const add = (a, b) => a + b;
+  divide() {
+    return this.firstOperand / this.secondOperand;
+  }
 
-const subtract = (a, b) => a - b;
+  multiply() {
+    return this.firstOperand * this.secondOperand;
+  }
 
-const divide = (a, b) => a / b;
+  addNumber() {
+    screen.textContent !== '0'
+      ? (screen.textContent += e.currentTarget.textContent)
+      : (screen.textContent = e.currentTarget.textContent);
+  }
 
-const multiply = (a, b) => a * b;
+  displayText() {}
 
-// const operate = (operator, a , b) => 
+  clear() {
+    this.currentOperand = '';
+  }
+}
+
+// const operate = (operator, a , b) =>
 
 // math functions
 
