@@ -51,6 +51,7 @@ main {
   color: #fff;
   text-align: right;
   font-size: 100px;
+  cursor: pointer;
 }
 
 .grid-container {

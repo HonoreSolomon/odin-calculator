@@ -12,14 +12,67 @@ const today = new Date();
 const hour = document.querySelector('.hour');
 const minute = document.querySelector('.minute');
 
+let isMultiOperation = false;
 let firstOperand;
 let secondOperand;
 let operation;
 let isOperator = false;
+let isDecimal = false;
+
+const percentage = () =>
+  (screen.textContent =
+    parseFloat(screen.textContent) / 100);
+
+const neg = () =>
+  (screen.textContent =
+    parseFloat(screen.textContent) * -1);
+
+const calculation = (
+  firstOperand,
+  secondOperand,
+  operation
+) => {
+  isDecimal = false;
+  switch (operation) {
+    case 'add':
+      screen.textContent =
+        Math.round(
+          (add(firstOperand, secondOperand) +
+            Number.EPSILON) *
+            10000
+        ) / 10000;
+      break;
+    case 'subtract':
+      screen.textContent =
+        Math.round(
+          (subtract(firstOperand, secondOperand) +
+            Number.EPSILON) *
+            10000
+        ) / 10000;
+      break;
+    case 'divide':
+      screen.textContent =
+        Math.round(
+          (divide(firstOperand, secondOperand) +
+            Number.EPSILON) *
+            10000
+        ) / 10000;
+      break;
+    case 'multiply':
+      screen.textContent =
+        Math.round(
+          (multiply(firstOperand, secondOperand) +
+            Number.EPSILON) *
+            10000
+        ) / 10000;
+      break;
+  }
+};
 
 const clear = () => {
   screen.textContent = '0';
   allClear.textContent = 'AC';
+  isDecimal = false;
 };
 
 const clearAll = () => {
@@ -27,6 +80,8 @@ const clearAll = () => {
   firstOperand = null;
   secondOperand = null;
   operation = null;
+  isMultiOperation = false;
+  isDecimal;
 };
 
 const add = (firstOperand, secondOperand) =>
@@ -36,36 +91,47 @@ const subtract = (firstOperand, secondOperand) =>
   firstOperand - secondOperand;
 
 const divide = (firstOperand, secondOperand) =>
-  firstOperand / secondOperand;
+  secondOperand !== 0
+    ? firstOperand / secondOperand
+    : alert(
+        "did you go to elementary school? you can't do that"
+      );
 
 const multiply = (firstOperand, secondOperand) =>
   firstOperand * secondOperand;
 
+function appendDecimal() {
+  if (isDecimal) return;
+  screen.textContent += this.value;
+  isDecimal = true;
+}
+
 function compute() {
   secondOperand = parseInt(screen.textContent);
-  switch (operation) {
-    case 'add':
-      screen.textContent = add(firstOperand, secondOperand);
-      break;
-    case 'subtract':
-      screen.textContent = subtract(
-        firstOperand,
-        secondOperand
-      );
-      break;
-    case 'divide':
-      screen.textContent = divide(
-        firstOperand,
-        secondOperand
-      );
-      break;
-    case 'multiply':
-      screen.textContent = multiply(
-        firstOperand,
-        secondOperand
-      );
-      break;
-  }
+  calculation(firstOperand, secondOperand, operation);
+  // switch (operation) {
+  //   case 'add':
+  //     screen.textContent = add(firstOperand, secondOperand);
+  //     break;
+  //   case 'subtract':
+  //     screen.textContent = subtract(
+  //       firstOperand,
+  //       secondOperand
+  //     );
+  //     break;
+  //   case 'divide':
+  //     screen.textContent = divide(
+  //       firstOperand,
+  //       secondOperand
+  //     );
+  //     break;
+  //   case 'multiply':
+  //     screen.textContent = multiply(
+  //       firstOperand,
+  //       secondOperand
+  //     );
+  //     break;
+  // }
 }
 
 function appendNumber() {
@@ -82,27 +148,48 @@ function appendNumber() {
 }
 
 function handleOperation() {
+  if (isMultiOperation) compute();
   isOperator = true;
   operation = this.value;
-  console.log(this.value);
   firstOperand = parseInt(screen.textContent);
+  isMultiOperation = true;
 }
 
 function handleClear() {
   this.textContent === 'AC' ? clearAll() : clear();
 }
 
-allClear.addEventListener('click', handleClear);
-
 for (const number of numbers) {
   number.addEventListener('click', appendNumber);
 }
 
+function dltAll() {
+  this.textContent = 0;
+}
+
+function deleteNumber() {
+  if (this.textContent.length <= 1) {
+    this.textContent = 0;
+    return;
+  }
+  this.textContent = this.textContent.slice(0, -1);
+}
+
+allClear.addEventListener('click', handleClear);
+
+screen.addEventListener('click', deleteNumber);
+screen.addEventListener('dblclick', dltAll);
+
 equal.addEventListener('click', compute);
+
+decimal.addEventListener('click', appendDecimal);
 
 hour.textContent = today.getHours();
 minute.textContent = today.getMinutes();
 
+negPos.addEventListener('click', neg);
+
+percent.addEventListener('click', percentage);
 // class Calculator {
 //   constructor(
 //     displayValue,
