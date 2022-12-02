@@ -15,7 +15,6 @@ body {
 }
 
 main {
-  height: 75vh;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -54,6 +53,7 @@ main {
   text-align: right;
   font-size: 100px;
   cursor: pointer;
+  margin-top: 5rem;
 }
 
 .grid-container {
@@ -73,6 +73,7 @@ main {
   background: var(--buttons);
   color: #fff;
   transition: ease-out 0.3s;
+  border: none;
 }
 
 .span-2 {
@@ -127,7 +128,7 @@ button {
 }
 
 footer {
-  position: absolute;
+  background-color: #444;
   bottom: 0;
   left: 0;
   display: flex;
@@ -135,6 +136,7 @@ footer {
   width: 100%;
   padding: 10px;
   font-size: 20px;
+  color: #fff;
 }
 
 main p {
